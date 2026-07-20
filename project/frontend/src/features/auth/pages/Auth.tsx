@@ -341,10 +341,7 @@ function Auth() {
 
         {/* Hero */}
         <div className="w-full max-w-lg relative z-10 max-[840px]:mt-10 max-[840px]:text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-5 max-[840px]:hidden">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-blue-300/80 text-[0.65rem] font-semibold tracking-widest uppercase">Plataforma CRM</span>
-          </div>
+
           <h1 className="text-white font-bold text-[3.5rem] max-[1024px]:text-4xl max-[840px]:text-3xl leading-[1.08] tracking-tight mb-5 max-[840px]:mb-3">
             Toda Sua <br />
             <em className="hero-gradient-text hero-elastic-text not-italic">Gestão Centralizada</em>
