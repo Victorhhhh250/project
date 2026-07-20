@@ -12,7 +12,9 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   server: {
-    port: 4173,
+    port: 5000,
+    host: '0.0.0.0',
+    allowedHosts: true,
   },
   build: {
     sourcemap: true,

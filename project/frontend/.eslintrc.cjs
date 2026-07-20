@@ -8,7 +8,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.json'],
+    project: ['./tsconfig.app.json', './tsconfig.node.json'],
   },
   plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'tailwindcss'],
   extends: [
@@ -30,7 +30,7 @@ module.exports = {
     },
     'import/resolver': {
       typescript: {
-        project: ['./tsconfig.json'],
+        project: ['./tsconfig.app.json', './tsconfig.node.json'],
       },
     },
     'import/ignore': ['node_modules', '\\.(scss|css|less|json)$'],
