@@ -1,8 +1,30 @@
+@import 'tailwindcss';
+
 /* ==========================================================================
-   KEYFRAMES DEFINITIONS
+   COMPONENTES DE ESTILO CUSTOMIZADOS
    ========================================================================== */
 
-/* Entrada suave do card */
+/* Gradiente fluido do Hero */
+.hero-gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Transição elástica exclusiva da tipografia em itálico do Hero */
+.hero-elastic-text {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.26, 1.55);
+}
+
+.hero-elastic-text:hover {
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   ANIMAÇÕES PRINCIPAIS
+   ========================================================================== */
 @keyframes cardEnter {
   from {
     opacity: 0;
@@ -14,7 +36,6 @@
   }
 }
 
-/* Validação física elástica (Tremor de erro) */
 @keyframes authElasticShake {
   0%, 100% { transform: translateX(0); }
   20% { transform: translateX(-5px); }
@@ -23,7 +44,6 @@
   80% { transform: translateX(2.5px); }
 }
 
-/* Surgimento dos elementos textuais e erros */
 @keyframes fadeSlideIn {
   from {
     opacity: 0;
@@ -35,31 +55,26 @@
   }
 }
 
-/* Feedback de sucesso (Checkmark pop) */
 @keyframes popIn {
   0% { transform: scale(0.5); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Movimentação flutuante dos Orbs ao fundo */
 @keyframes floatOrb {
   0% { transform: translateY(0) scale(1); }
   100% { transform: translateY(-30px) scale(1.05); }
 }
 
-/* Rotação e preenchimento do spinner de carregamento */
 @keyframes rotate {
   100% { transform: rotate(360deg); }
 }
+
 @keyframes dash {
   0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
   50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
   100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
 }
 
-/* ==========================================================================
-   ANIMATION UTILITIES MAPPING
-   ========================================================================== */
 .animate-card-enter {
   animation: cardEnter 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
@@ -88,9 +103,6 @@
   animation: dash 1.5s ease-in-out infinite;
 }
 
-/* ==========================================================================
-   ACCESSIBILITY: PREFERS REDUCED MOTION
-   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .animate-card-enter,
   .animate-elastic-shake,
@@ -102,4 +114,45 @@
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* ==========================================================================
+   UTILIDADES CSS EXTRAS
+   ========================================================================== */
+
+.scrollbar-fine::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.scrollbar-fine::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-fine::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.12);
+  border-radius: 9999px;
+}
+
+.scrollbar-fine:hover::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.24);
+}
+
+.input-dynamic-reactive {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type='checkbox'] {
+  accent-color: #2563eb;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.pointer-events-none {
+  pointer-events: none;
 }

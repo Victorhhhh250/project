@@ -8,9 +8,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
-    project: ['./tsconfig.app.json'],
+    project: ['./tsconfig.json'],
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'import', 'tailwindcss'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -18,6 +18,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:react-hooks/recommended',
+    'plugin:tailwindcss/recommended',
     'prettier',
   ],
   settings: {
@@ -29,7 +30,7 @@ module.exports = {
     },
     'import/resolver': {
       typescript: {
-        project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        project: ['./tsconfig.json'],
       },
     },
     'import/ignore': ['node_modules', '\\.(scss|css|less|json)$'],

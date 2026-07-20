@@ -1,6 +1,6 @@
 # Frontend
 
-Esta pasta contém a base do frontend React + Vite + TypeScript para um produto SaaS enterprise.
+Este repositório contém o ambiente frontend React + Vite + TypeScript pronto para o desenvolvimento de um produto SaaS Enterprise.
 
 ## Stack
 
@@ -10,75 +10,111 @@ Esta pasta contém a base do frontend React + Vite + TypeScript para um produto 
 - Tailwind CSS v4
 - React Router DOM
 - TanStack Query
+- Axios
 - Zustand
 - React Hook Form
 - Zod
-- Axios
-- ESLint
-- Prettier
+- Hookform Resolvers
+- shadcn/ui-inspired UI
 - Radix UI
 - Lucide React
+- Framer Motion
+- Sonner
+- date-fns
+- TanStack Table
+- dnd-kit
+- React Dropzone
+- imask
+- clsx
+- tailwind-merge
+- class-variance-authority
 
-## Como instalar
+## Instalação
 
 ```bash
 cd frontend
 npm install
 ```
 
-## Como executar
+## Scripts
 
-```bash
-npm run dev
+- `npm run dev` — inicia o servidor de desenvolvimento
+- `npm run build` — compila o app para produção
+- `npm run preview` — pré-visualiza o build de produção
+- `npm run lint` — valida o código com ESLint
+- `npm run lint:fix` — corrige automaticamente problemas suportados
+- `npm run format` — formata o código com Prettier
+- `npm run type-check` — executa verificação de tipos TypeScript
+
+## Arquitetura
+
+```
+src/
+  app/
+    layouts/
+    providers/
+    router/
+  assets/
+    fonts/
+    icons/
+    images/
+  components/
+    common/
+    shared/
+    ui/
+  config/
+  constants/
+  features/
+  hooks/
+  lib/
+    axios.ts
+    queryClient.ts
+    utils.ts
+  schemas/
+  services/
+  stores/
+  styles/
+  types/
+  utils/
+  pages/
 ```
 
-## Build
+## Convenções
 
-```bash
-npm run build
+- `@/*` mapeia para `src/*`
+- os imports devem ser ordenados em: React, bibliotecas, aliases e relativos
+- use `features/` para lógica de domínio e `components/ui/` para componentes reutilizáveis
+- serviços API vivem em `services/` e abstrações de infraestrutura em `lib/`
+- estado global fica em `stores/`
+- `app/providers/` agrupa provedores de contexto
+
+## Configurações
+
+- TypeScript com `strict` e regras de qualidade ativas
+- Tailwind CSS v4 com modo `class` para dark mode
+- ESLint + Prettier + plugin Tailwind
+- Husky + lint-staged para hooks de pré-commit
+
+## Variáveis de ambiente
+
+Use `.env.example` como referência:
+
+```env
+VITE_API_URL=
+VITE_APP_NAME=Project Frontend
+VITE_ENVIRONMENT=development
 ```
 
-## Lint e formatação
+## Dependências instaladas
 
-```bash
-npm run lint
-npm run format
-```
+- UI, roteamento e estado: React, React Router DOM, Zustand, TanStack Query
+- Formulários e validação: React Hook Form, Zod, @hookform/resolvers
+- Estilo e temas: Tailwind CSS, clsx, tailwind-merge, class-variance-authority
+- APIs e utilitários: Axios, date-fns, imask
+- Interação: dnd-kit, react-dropzone
+- Notificações e animações: Sonner, Framer Motion
+- Acessibilidade e componentes: Radix UI, Lucide React
 
-## Estrutura de pastas
+## Observações
 
-- `src/app/`
-  - `router/` — rotas públicas e privadas
-  - `providers/` — provedores de contexto e queries
-  - `layouts/` — layouts compartilhados
-- `src/components/`
-  - `ui/` — componentes de interface reutilizáveis
-  - `common/` — componentes específicos de domínio comum
-  - `shared/` — componentes de marca e navegação
-- `src/features/` — módulos de domínio futuros
-- `src/hooks/` — hooks customizados
-- `src/lib/` — abstrações de Axios, QueryClient e utilitários
-- `src/services/` — camadas de serviços e chamadas API
-- `src/stores/` — estado global com Zustand
-- `src/schemas/` — definições e validações Zod
-- `src/types/` — tipos compartilhados
-- `src/constants/` — rotas e valores fixos
-- `src/utils/` — utilitários genéricos
-- `src/styles/` — estilos globais e temas
-
-## Arquivos importantes
-
-- `.env.example` — variáveis de ambiente
-- `vite.config.ts` — configuração Vite e Tailwind
-- `tsconfig.app.json` — TypeScript strict
-- `.eslintrc.cjs` — regras de lint
-- `.prettierrc` — formatação de código
-
-## Padrões de desenvolvimento
-
-- Use a pasta `features/` para funcionalidades e componentes específicos de domínio
-- Use `stores/` para estado global e `services/` para comunicação com APIs
-- Use `lib/` para abstrações de infraestrutura e helpers
-- Rotas privadas usam guardas em `app/router/protected.tsx`
-- Valide formulários com Zod + React Hook Form
-- Use componentes de UI em `components/ui/` sempre que possível
+Este repositório está preparado para iniciar o desenvolvimento com arquitetura SaaS escalável, controles de qualidade e suporte a temas escuro/claro.
