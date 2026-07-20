@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Users, Calendar, LogOut, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import {
+  LayoutDashboard, Users, Calendar,
+  LogOut, PanelLeftClose, PanelLeftOpen,
+} from 'lucide-react';
 import { useAuth } from '@/app/auth';
 import { useAppStore } from '@/stores/useAppStore';
 import { ROUTES } from '@/constants/routes';
@@ -11,113 +14,94 @@ const NAV = [
   { label: 'Agenda',    path: ROUTES.agenda,    icon: Calendar },
 ];
 
-/* ─── Sidebar ──────────────────────────────────────────────── */
-export function Sidebar() {
-  const location  = useLocation();
-  const { logout }= useAuth();
-  const { sidebarOpen, setSidebarOpen, sidebarCollapsed, setSidebarCollapsed } = useAppStore();
+/* Glass token — shared by sidebar */
+const glass = {
+  background:           'rgba(255,255,255,0.72)',
+  backdropFilter:       'blur(22px) saturate(180%)',
+  WebkitBackdropFilter: 'blur(22px) saturate(180%)',
+  borderRight:          '1px solid rgba(226,232,240,0.65)',
+  boxShadow:            '4px 0 28px rgba(15,23,42,0.06)',
+} as React.CSSProperties;
 
-  /* Close drawer on navigation */
+export function Sidebar() {
+  const location = useLocation();
+  const { logout } = useAuth();
+  const {
+    sidebarOpen, setSidebarOpen,
+    sidebarCollapsed, setSidebarCollapsed,
+  } = useAppStore();
+
+  /* Close drawer when route changes */
   useEffect(() => { setSidebarOpen(false); }, [location.pathname, setSidebarOpen]);
 
-  const col = sidebarCollapsed; // shorthand
+  const col = sidebarCollapsed;
 
+  /* ─────────────────────────────────────────────── */
   return (
     <>
-      {/* ── Mobile backdrop ── */}
+      {/* Mobile backdrop */}
       <div
+        aria-hidden
         onClick={() => setSidebarOpen(false)}
         className={[
           'fixed inset-0 z-40 lg:hidden',
-          'bg-black/60 backdrop-blur-sm',
+          'bg-black/40 backdrop-blur-[3px]',
           'transition-opacity duration-300',
-          sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
+          sidebarOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none',
         ].join(' ')}
-        aria-hidden
       />
 
-      {/* ── Sidebar shell ── */}
+      {/* ── Sidebar shell ──────────────────────────── */}
       <aside
+        style={glass}
         className={[
-          /* positioning */
-          'fixed inset-y-0 left-0 z-50 flex flex-col',
+          /* stacking */
+          'fixed inset-y-0 left-0 z-50 flex flex-col shrink-0',
           'lg:relative lg:inset-auto lg:z-auto',
-          /* size – mobile always 215 px, desktop toggles */
-          'w-[215px]',
-          col ? 'lg:w-[58px]' : 'lg:w-[215px]',
+          /* width — mobile always 220 px, desktop toggles */
+          'w-[220px]',
+          col ? 'lg:w-[62px]' : 'lg:w-[220px]',
           /* motion */
           'transition-[width,transform] duration-300 ease-[cubic-bezier(.4,0,.2,1)]',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
-          /* glass */
-          'backdrop-blur-2xl',
-          /* overflow */
+          /* clip */
           'overflow-hidden',
         ].join(' ')}
-        style={{
-          background: 'rgba(9,9,13,0.86)',
-          borderRight: '1px solid rgba(255,255,255,0.055)',
-        }}
       >
 
-        {/* ── Logo row ──────────────────────────── */}
-        <div
-          className="flex items-center h-[58px] shrink-0 px-[14px] gap-[10px]"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
-        >
+        {/* ── Logo ──────────────────────────────────── */}
+        <div className="flex items-center gap-[10px] h-[60px] px-4 shrink-0 border-b border-[#e2e8f0]/70">
           {/* Brand mark */}
-          <div
-            className={[
-              'flex items-center justify-center rounded-[7px] shrink-0',
-              'transition-all duration-300',
-              col ? 'lg:mx-auto' : '',
-              'w-[26px] h-[26px]',
-            ].join(' ')}
-            style={{ background: '#2563eb' }}
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+          <div className="w-[28px] h-[28px] rounded-[8px] bg-[#2563eb] flex items-center justify-center shrink-0 shadow-sm shadow-blue-600/25">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
               stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
             </svg>
           </div>
 
-          {/* Wordmark */}
-          <div
-            className={[
-              'flex-1 leading-none overflow-hidden',
-              'transition-[opacity,max-width] duration-300',
-              col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-full opacity-100',
-            ].join(' ')}
-          >
-            <span className="block text-[0.8rem] font-semibold tracking-tight whitespace-nowrap"
-              style={{ color: 'rgba(255,255,255,0.88)' }}>
-              Atlhon
-            </span>
-            <span className="block text-[0.58rem] font-medium mt-[3px] whitespace-nowrap"
-              style={{ color: 'rgba(96,165,250,0.7)', letterSpacing: '0.05em' }}>
+          {/* Wordmark — fades out when collapsed */}
+          <div className={[
+            'overflow-hidden leading-none',
+            'transition-[opacity,max-width] duration-300',
+            col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-[160px] opacity-100',
+          ].join(' ')}>
+            <p className="text-[0.83rem] font-bold text-[#0f172a] whitespace-nowrap tracking-tight">
+              Atlhon Sales
+            </p>
+            <p className="text-[0.6rem] font-semibold text-[#2563eb] whitespace-nowrap mt-[3px]"
+              style={{ letterSpacing: '0.04em' }}>
               Sales CRM
-            </span>
+            </p>
           </div>
-
-          {/* Desktop collapse toggle */}
-          <button
-            onClick={() => setSidebarCollapsed(!col)}
-            title={col ? 'Expandir' : 'Recolher'}
-            className={[
-              'hidden lg:flex items-center justify-center shrink-0',
-              'w-[22px] h-[22px] rounded-[6px]',
-              'text-white/20 hover:text-white/60',
-              'transition-colors duration-200',
-              'border-none bg-transparent cursor-pointer',
-              col ? 'lg:absolute lg:right-[18px]' : '',
-            ].join(' ')}
-          >
-            {col ? <PanelLeftOpen size={13} /> : <PanelLeftClose size={13} />}
-          </button>
         </div>
 
-        {/* ── Navigation ────────────────────────── */}
-        <nav className="flex-1 px-[7px] py-3 overflow-y-auto overflow-x-hidden">
-          <ul className="space-y-[2px]" role="list">
+        {/* ── Navigation ────────────────────────────── */}
+        <nav className="flex-1 flex flex-col px-[9px] py-3 overflow-y-auto overflow-x-hidden">
+
+          {/* Nav items */}
+          <ul className="flex-1 space-y-[2px]" role="list">
             {NAV.map(({ label, path, icon: Icon }) => {
               const active = location.pathname === path;
               return (
@@ -126,38 +110,29 @@ export function Sidebar() {
                     to={path}
                     title={col ? label : undefined}
                     className={[
-                      'group relative flex items-center rounded-[8px]',
-                      'border-l-[1.5px] outline-none select-none',
+                      'group flex items-center rounded-[9px] border-l-2 outline-none select-none',
                       'transition-all duration-200 ease-out',
-                      /* layout – collapsed centers icon */
-                      col ? 'lg:justify-center lg:px-0 lg:py-[10px] lg:gap-0 gap-[10px] px-[10px] py-[10px]'
-                           : 'gap-[10px] px-[10px] py-[10px]',
-                      /* colour states */
+                      /* layout: collapsed centers icon on desktop */
+                      col
+                        ? 'lg:justify-center lg:px-0 lg:py-[10px] gap-[9px] px-3 py-[9px]'
+                        : 'gap-[9px] px-3 py-[9px]',
+                      /* colour */
                       active
-                        ? 'border-[#2563eb]/60 bg-[#2563eb]/[0.09] text-white/90'
-                        : 'border-transparent text-white/38 hover:bg-white/[0.04] hover:text-white/72',
+                        ? 'border-[#2563eb] bg-[#2563eb]/[0.07] text-[#1e40af]'
+                        : 'border-transparent text-[#64748b] hover:bg-[#0f172a]/[0.04] hover:text-[#1e293b]',
                     ].join(' ')}
                   >
-                    {/* Icon */}
                     <Icon
-                      size={14}
-                      className="shrink-0 transition-all duration-200"
-                      style={{
-                        color:   active ? '#93c5fd' : undefined,
-                        opacity: active ? 1 : 0.5,
-                      }}
+                      size={15}
+                      className="shrink-0 transition-colors duration-200"
+                      style={{ color: active ? '#2563eb' : undefined }}
                     />
-
-                    {/* Label */}
-                    <span
-                      className={[
-                        'text-[0.815rem] font-medium whitespace-nowrap',
-                        'transition-all duration-300 overflow-hidden',
-                        col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-full opacity-100',
-                        !active ? 'group-hover:translate-x-px' : '',
-                        'transition-transform duration-200',
-                      ].filter(Boolean).join(' ')}
-                    >
+                    <span className={[
+                      'text-[0.82rem] font-medium whitespace-nowrap',
+                      'transition-all duration-300 overflow-hidden',
+                      col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-full opacity-100',
+                      !active ? 'group-hover:translate-x-px' : '',
+                    ].filter(Boolean).join(' ')}>
                       {label}
                     </span>
                   </Link>
@@ -165,73 +140,79 @@ export function Sidebar() {
               );
             })}
           </ul>
+
+          {/* ── Collapse toggle — always visible at bottom of nav ── */}
+          <div className="mt-3 pt-2.5 border-t border-[#e2e8f0]/60">
+            <button
+              onClick={() => setSidebarCollapsed(!col)}
+              title={col ? 'Expandir' : 'Recolher'}
+              className={[
+                'w-full flex items-center rounded-[9px]',
+                'text-[#94a3b8] hover:text-[#475569] hover:bg-[#0f172a]/[0.04]',
+                'transition-all duration-200 border-none bg-transparent cursor-pointer',
+                col
+                  ? 'lg:justify-center lg:px-0 lg:py-[10px] gap-[9px] px-3 py-[9px]'
+                  : 'gap-[9px] px-3 py-[9px]',
+              ].join(' ')}
+            >
+              {col
+                ? <PanelLeftOpen size={15} />
+                : (
+                  <>
+                    <PanelLeftClose size={15} />
+                    {/* Text visible only when expanded */}
+                    <span className="text-[0.8rem] font-medium">Recolher</span>
+                  </>
+                )
+              }
+            </button>
+          </div>
         </nav>
 
-        {/* ── User area ─────────────────────────── */}
-        <div
-          className="px-[7px] pb-[10px] pt-[8px] shrink-0"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
-        >
-          <div
-            className={[
-              'group flex items-center rounded-[8px]',
-              'hover:bg-white/[0.035] transition-colors duration-200',
-              col ? 'lg:justify-center lg:px-0 lg:py-[10px] lg:gap-0 gap-[10px] px-[10px] py-[10px]'
-                  : 'gap-[10px] px-[10px] py-[10px]',
-            ].join(' ')}
-          >
-            {/* Avatar + presence dot */}
+        {/* ── User area ─────────────────────────────── */}
+        <div className="px-[9px] pb-3 pt-2.5 border-t border-[#e2e8f0]/70 shrink-0">
+          <div className={[
+            'group flex items-center rounded-[9px]',
+            'hover:bg-[#0f172a]/[0.04] transition-colors duration-200',
+            col
+              ? 'lg:justify-center lg:px-0 lg:py-[10px] gap-[10px] px-3 py-[9px]'
+              : 'gap-[10px] px-3 py-[9px]',
+          ].join(' ')}>
+            {/* Avatar + presence */}
             <div className="relative shrink-0">
-              <div
-                className="w-[28px] h-[28px] rounded-full flex items-center justify-center text-[0.6rem] font-semibold"
-                style={{
-                  background: '#131320',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  color: 'rgba(255,255,255,0.65)',
-                }}
-              >
+              <div className="w-[30px] h-[30px] rounded-full bg-[#1e3a8a] flex items-center justify-center text-white text-[0.62rem] font-bold select-none">
                 AD
               </div>
               <span
-                className="absolute bottom-0 right-0 w-[7px] h-[7px] rounded-full bg-emerald-400"
-                style={{ border: '1.5px solid rgb(9,9,13)' }}
+                className="absolute bottom-0 right-0 w-[8px] h-[8px] rounded-full bg-emerald-500"
+                style={{ border: '2px solid rgba(255,255,255,0.85)' }}
               />
             </div>
 
-            {/* Name + email */}
-            <div
-              className={[
-                'flex-1 min-w-0 leading-none overflow-hidden',
-                'transition-[opacity,max-width] duration-300',
-                col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-full opacity-100',
-              ].join(' ')}
-            >
-              <p className="text-[0.775rem] font-medium truncate"
-                style={{ color: 'rgba(255,255,255,0.7)' }}>
-                Admin Demo
-              </p>
-              <p className="text-[0.635rem] truncate mt-[3px]"
-                style={{ color: 'rgba(255,255,255,0.22)' }}>
-                admin@atlhon.com
-              </p>
+            {/* Info */}
+            <div className={[
+              'flex-1 min-w-0 overflow-hidden leading-none',
+              'transition-[opacity,max-width] duration-300',
+              col ? 'lg:max-w-0 lg:opacity-0' : 'max-w-full opacity-100',
+            ].join(' ')}>
+              <p className="text-[0.8rem] font-semibold text-[#0f172a] truncate">Admin Demo</p>
+              <p className="text-[0.64rem] text-[#94a3b8] truncate mt-[3px]">admin@atlhon.com</p>
             </div>
 
-            {/* Logout — fades in on row hover, hidden when collapsed */}
+            {/* Logout — appears on hover, hidden when collapsed */}
             {!col && (
               <button
                 onClick={logout}
                 title="Sair da conta"
                 className={[
-                  'shrink-0 w-[26px] h-[26px] rounded-[6px]',
-                  'flex items-center justify-center',
+                  'shrink-0 w-[28px] h-[28px] rounded-[7px] flex items-center justify-center',
                   'border-none bg-transparent cursor-pointer',
-                  'text-white/22 hover:text-red-400 hover:bg-red-500/[0.1]',
+                  'text-[#94a3b8] hover:text-red-500 hover:bg-red-50',
                   'opacity-0 group-hover:opacity-100',
                   'transition-all duration-200',
-                  '-translate-x-0.5 group-hover:translate-x-0',
                 ].join(' ')}
               >
-                <LogOut size={12} />
+                <LogOut size={13} />
               </button>
             )}
           </div>
