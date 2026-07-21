@@ -8,25 +8,42 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        heading: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
-        soft: '0 12px 24px rgba(15, 23, 42, 0.08)',
-        glow: '0 0 0 1px rgba(59, 130, 246, 0.15)',
+        soft: '0 12px 24px rgba(2, 6, 23, 0.08)',
+        glow: '0 0 0 4px rgb(var(--color-primary) / 0.12)',
       },
       colors: {
-        brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
+        primary: {
+          DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+          600: 'rgb(var(--color-primary) / <alpha-value>)',
         },
+        secondary: {
+          DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
+        },
+        accent: {
+          DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
+        },
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        text: 'rgb(var(--color-text) / <alpha-value>)',
+        muted: 'rgb(var(--color-muted) / <alpha-value>)',
+        error: 'rgb(var(--color-error) / <alpha-value>)',
+        success: 'rgb(var(--color-success) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
       },
       borderRadius: {
-        xl: '1rem',
-        '2xl': '1.5rem',
+        sm: '6px',
+        md: '12px',
+        lg: '16px',
+        xl: '24px',
+        full: '9999px',
+      },
+      spacing: {
+        'gap-sm': '8px',
+        'gap-md': '16px',
+        'gap-lg': '24px',
       },
     },
   },

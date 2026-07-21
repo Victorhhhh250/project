@@ -1,15 +1,54 @@
-/* Mapeamento de Foco e Brilho Dinâmico Reativo baseados na Força da Senha */
-.input-dynamic-reactive {
-  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+@import 'tailwindcss';
+
+@layer components {
+  /* ==========================================================================
+     COMPONENTES DO DASHBOARD E SISTEMA
+     ========================================================================== */
+     
+  /* Painéis e Cards */
+  .panel-card {
+    @apply bg-white rounded-xl border border-slate-200 p-5 shadow-sm transition-colors;
+  }
+  .panel-card-hover:hover {
+    @apply border-slate-300;
+  }
+
+  /* Botões Corporativos */
+  .btn-primary {
+    @apply flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm cursor-pointer;
+  }
+  .btn-outline {
+    @apply flex items-center gap-2 text-sm text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm;
+  }
+
+  /* Tags de Status (Pílulas) */
+  .status-badge-success {
+    @apply bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20 px-2.5 py-1 text-[11px] font-medium rounded-full;
+  }
+  .status-badge-warning {
+    @apply bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20 px-2.5 py-1 text-[11px] font-medium rounded-full;
+  }
+  .status-badge-neutral {
+    @apply bg-slate-50 text-slate-600 ring-1 ring-inset ring-slate-500/20 px-2.5 py-1 text-[11px] font-medium rounded-full;
+  }
+
+  /* Tags de Planos (Quadradas) */
+  .plan-tag-basic {
+    @apply text-slate-600 bg-slate-100 px-2.5 py-1 text-[11px] font-medium rounded-md;
+  }
+  .plan-tag-pro {
+    @apply text-blue-700 bg-blue-50 px-2.5 py-1 text-[11px] font-medium rounded-md;
+  }
+  .plan-tag-enterprise {
+    @apply text-slate-900 bg-slate-200 font-semibold px-2.5 py-1 text-[11px] font-medium rounded-md;
+  }
+  
+  /* Indicadores de Crescimento (Setas nos Cards) */
+  .trend-up {
+    @apply flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700;
+  }
+  .trend-down {
+    @apply flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-md bg-red-50 text-red-700;
+  }
 }
 
-.input-dynamic-reactive:focus {
-  border-color: var(--dynamic-focus-color, #3b82f6) !important;
-  box-shadow: 0 0 0 3px var(--dynamic-glow-color, rgba(37, 99, 235, 0.15)) !important;
-  outline: none;
-}
-
-/* Grid de suporte para micro-checkboxes e checklists */
-.checkbox-dash-array {
-  stroke-dasharray: 2 2;
-}

@@ -1,4 +1,4 @@
-.scrollbar-fine::-webkit-scrollbar {
+.scrollbar-fine::-webkit-scrollbar { 
   width: 4px;
   height: 4px;
 }
@@ -8,11 +8,11 @@
 }
 
 .scrollbar-fine::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: rgb(var(--color-muted) / 0.9);
   border-radius: 10px;
   transition: background 0.2s ease;
 }
 
 .scrollbar-fine::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: rgb(var(--color-muted) / 1);
 }
