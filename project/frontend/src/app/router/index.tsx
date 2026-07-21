@@ -1,27 +1,38 @@
+import { Suspense, lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { ProtectedRoute } from '@/app/router/ProtectedRoute';
 import { ROUTES } from '@/constants/routes';
+import FullPageLoader from '@/components/ui/FullPageLoader';
 
-import Auth from '@/features/auth/pages/Auth';
-import ResetPassword from '@/features/auth/pages/ResetPassword';
-import Dashboard from '@/features/dashboard/pages/Dashboard';
-import Alunos from '@/features/alunos/pages/Alunos';
-import Agenda from '@/features/agenda/pages/Agenda';
-import Financeiro from '@/features/financeiro/pages/Financeiro';
-import Relatorios from '@/features/Relatorio/pages/Relatorios';
-import Dietas from '@/features/dietas/pages/Dietas';
-import Perfil from '@/features/perfil/pages/Perfi';
-import Configuracoes from '@/features/configuracoes/pages/configuracoes';
+const Auth = lazy(() => import('@/features/auth/pages/Auth'));
+const ResetPassword = lazy(() => import('@/features/auth/pages/ResetPassword'));
+const Dashboard = lazy(() => import('@/features/dashboard/pages/Dashboard'));
+const Alunos = lazy(() => import('@/features/alunos/pages/Alunos'));
+const Agenda = lazy(() => import('@/features/agenda/pages/Agenda'));
+const Financeiro = lazy(() => import('@/features/financeiro/pages/Financeiro'));
+const Relatorios = lazy(() => import('@/features/Relatorio/pages/Relatorios'));
+const Dietas = lazy(() => import('@/features/dietas/pages/Dietas'));
+const Perfil = lazy(() => import('@/features/perfil/pages/Perfi'));
+const Configuracoes = lazy(() => import('@/features/configuracoes/pages/configuracoes'));
+const Treinos = lazy(() => import('@/features/treinos/pages/Treinos'));
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.root,
-    element: <Auth />,
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <Auth />
+      </Suspense>
+    ),
   },
   {
     path: ROUTES.resetPassword,
-    element: <ResetPassword />,
+    element: (
+      <Suspense fallback={<FullPageLoader />}>
+        <ResetPassword />
+      </Suspense>
+    ),
   },
   {
     element: <ProtectedRoute />,
@@ -29,14 +40,15 @@ export const router = createBrowserRouter([
       {
         element: <AppLayout />,
         children: [
-          { path: ROUTES.dashboard,    element: <Dashboard /> },
-          { path: ROUTES.alunos,       element: <Alunos /> },
-          { path: ROUTES.agenda,       element: <Agenda /> },
-          { path: ROUTES.financeiro,   element: <Financeiro /> },
-          { path: ROUTES.relatorios,   element: <Relatorios /> },
-          { path: ROUTES.dietas,       element: <Dietas /> },
-          { path: ROUTES.perfil,       element: <Perfil /> },
-          { path: ROUTES.configuracoes, element: <Configuracoes /> },
+          { path: ROUTES.dashboard,    element: (<Suspense fallback={<FullPageLoader />}><Dashboard /></Suspense>) },
+          { path: ROUTES.alunos,       element: (<Suspense fallback={<FullPageLoader />}><Alunos /></Suspense>) },
+          { path: ROUTES.agenda,       element: (<Suspense fallback={<FullPageLoader />}><Agenda /></Suspense>) },
+          { path: ROUTES.financeiro,   element: (<Suspense fallback={<FullPageLoader />}><Financeiro /></Suspense>) },
+          { path: ROUTES.relatorios,   element: (<Suspense fallback={<FullPageLoader />}><Relatorios /></Suspense>) },
+          { path: ROUTES.dietas,       element: (<Suspense fallback={<FullPageLoader />}><Dietas /></Suspense>) },
+          { path: ROUTES.treinos,      element: (<Suspense fallback={<FullPageLoader />}><Treinos /></Suspense>) },
+          { path: ROUTES.perfil,       element: (<Suspense fallback={<FullPageLoader />}><Perfil /></Suspense>) },
+          { path: ROUTES.configuracoes, element: (<Suspense fallback={<FullPageLoader />}><Configuracoes /></Suspense>) },
         ],
       },
     ],

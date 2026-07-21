@@ -7,6 +7,7 @@ export const ROUTES = {
   financeiro: '/financeiro',
   relatorios: '/relatorios',
   dietas: '/dietas',
+  treinos: '/treinos',
   perfil: '/perfil',
   configuracoes: '/configuracoes',
 } as const;

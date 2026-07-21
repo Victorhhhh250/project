@@ -1,4 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 import {
   Plus,
   Search,
@@ -92,6 +94,17 @@ export default function Dietas() {
   const [menuOpen, setMenuOpen]   = useState<number | null>(null);
   const [currentPage, setCurrentPage]   = useState(1);
   const itemsPerPage = 6;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const status = params.get('status') ?? 'Todos';
+    if (status !== filterStatus) {
+      setFilterStatus(status);
+      setCurrentPage(1);
+    }
+  }, [location.search]);
 
   const filtered = useMemo(() => {
     return mockDiets.filter((d) => {
@@ -171,7 +184,14 @@ export default function Dietas() {
           <div className="flex items-center gap-3 w-full md:w-auto">
             <div className="tab-bar">
               {(['Todos', 'Ativa', 'Pausada', 'Concluída'] as const).map((s) => (
-                <button key={s} type="button" onClick={() => { setFilterStatus(s); setCurrentPage(1); }}
+                <button key={s} type="button" onClick={() => {
+                  setFilterStatus(s); setCurrentPage(1);
+                  if (s === 'Todos') {
+                    navigate(ROUTES.dietas, { replace: true });
+                  } else {
+                    navigate(`${ROUTES.dietas}?status=${encodeURIComponent(s)}`, { replace: true });
+                  }
+                }}
                   className={`tab-item ${filterStatus === s ? 'tab-item-active' : ''}`}>{s}
                 </button>
               ))}
