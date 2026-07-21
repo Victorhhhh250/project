@@ -1,7 +1,12 @@
 export const ROUTES = {
   root: '/',
+  resetPassword: '/reset-password',
   dashboard: '/dashboard',
   alunos: '/alunos',
   agenda: '/agenda',
-  resetPassword: '/reset-password',
-};
+  financeiro: '/financeiro',
+  relatorios: '/relatorios',
+  dietas: '/dietas',
+  perfil: '/perfil',
+  configuracoes: '/configuracoes',
+} as const;

@@ -4,6 +4,7 @@ import {
   ChevronDown, User, Settings, Shield,
   LogOut, Moon, Sun, ExternalLink,
 } from 'lucide-react';
+import { ROUTES } from '@/constants/routes';
 import { useAuth } from '@/app/auth';
 
 export function ProfileDropdown() {
@@ -27,14 +28,14 @@ export function ProfileDropdown() {
   const handleLogout = useCallback(() => {
     setOpen(false);
     logout();
-    navigate('/');
+    navigate(ROUTES.root);
   }, [logout, navigate]);
 
   const menuItems = [
-    { icon: User, label: 'Meu perfil', action: () => setOpen(false) },
-    { icon: Settings, label: 'Configurações', action: () => setOpen(false) },
-    { icon: Shield, label: 'Segurança', action: () => setOpen(false) },
-    { icon: ExternalLink, label: 'Central de Suporte', action: () => setOpen(false) },
+    { icon: User, label: 'Meu perfil', action: () => { setOpen(false); navigate(ROUTES.perfil); } },
+    { icon: Settings, label: 'Configurações', action: () => { setOpen(false); navigate(ROUTES.configuracoes); } },
+    { icon: Shield, label: 'Segurança', action: () => { setOpen(false); navigate(`${ROUTES.configuracoes}#seguranca`); } },
+    { icon: ExternalLink, label: 'Central de Suporte', action: () => { setOpen(false); window.open('https://support.atlhon.com', '_blank'); } },
   ];
 
   return (
