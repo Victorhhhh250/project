@@ -179,20 +179,10 @@ export default function Alunos() {
   }), [students]);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-6 lg:p-8 space-y-8 font-sans">
-      
-      {/* ── ESTILOS LOCAIS ── */}
-      <style>{`
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-slide-down { animation: slideDown 0.4s ease-out forwards; }
-        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+    <div className="space-y-6">
 
       {/* ── HEADER ── */}
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-slide-down">
+      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-slide">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">Gestão de Alunos</h1>
           <p className="text-sm text-slate-500 mt-1.5 flex items-center gap-2">
@@ -224,26 +214,30 @@ export default function Alunos() {
       </header>
 
       {/* ── KPIs ── */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 animate-slide-down" style={{ animationDelay: '0.1s', opacity: 0 }}>
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
         {[
-          { label: 'Total de Alunos', val: counts.Todos, icon: Users, color: 'blue' },
-          { label: 'Alunos Ativos', val: counts.Ativo, icon: UserCheck, color: 'emerald' },
-          { label: 'Aguardando Aprovação', val: counts.Pendente, icon: Clock, color: 'amber' },
-          { label: 'Inativos / Cancelados', val: counts.Inativo, icon: UserX, color: 'slate' }
+          { label: 'Total de Alunos',        val: counts.Todos,    icon: Users,      color: 'blue' },
+          { label: 'Alunos Ativos',          val: counts.Ativo,    icon: UserCheck,  color: 'emerald' },
+          { label: 'Aguardando Aprovação',   val: counts.Pendente, icon: Clock,      color: 'amber' },
+          { label: 'Inativos / Cancelados',  val: counts.Inativo,  icon: UserX,      color: 'slate' },
         ].map((kpi, i) => (
-          <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all duration-300 group cursor-default">
+          <div
+            key={i}
+            className="panel-card-sm group cursor-default animate-card-enter"
+            style={{ animationDelay: `${i * 0.07}s` }}
+          >
             <div className="flex justify-between items-start">
               <div>
-                <p className="text-[13px] font-semibold text-slate-500 uppercase tracking-wide group-hover:text-slate-700 transition-colors">{kpi.label}</p>
-                <p className="text-2xl md:text-3xl font-bold text-slate-900 mt-2">{kpi.val}</p>
+                <p className="text-[13px] font-medium text-slate-500 uppercase tracking-wider">{kpi.label}</p>
+                <p className="text-2xl md:text-3xl font-bold text-slate-800 mt-2">{kpi.val}</p>
               </div>
-              <div className={`p-3 rounded-xl transition-colors ${
-                kpi.color === 'blue' ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-100' :
+              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-colors ${
+                kpi.color === 'blue'    ? 'bg-blue-50 text-blue-600 group-hover:bg-blue-100' :
                 kpi.color === 'emerald' ? 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100' :
-                kpi.color === 'amber' ? 'bg-amber-50 text-amber-600 group-hover:bg-amber-100' :
+                kpi.color === 'amber'   ? 'bg-amber-50 text-amber-600 group-hover:bg-amber-100' :
                 'bg-slate-50 text-slate-500 group-hover:bg-slate-100'
               }`}>
-                <kpi.icon size={22} strokeWidth={2.5} />
+                <kpi.icon size={20} strokeWidth={2.5} />
               </div>
             </div>
           </div>
@@ -251,7 +245,7 @@ export default function Alunos() {
       </section>
 
       {/* ── CONTEÚDO PRINCIPAL (TABELA E FILTROS) ── */}
-      <main className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col animate-slide-down" style={{ animationDelay: '0.2s', opacity: 0 }}>
+      <main className="bg-white rounded-[24px] border border-slate-100/80 shadow-[0_4px_24px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col animate-fade-slide" style={{ animationDelay: '0.2s' }}>
         
         {/* Toolbar de Filtros */}
         <div className="p-4 md:p-5 border-b border-slate-200 flex flex-col xl:flex-row items-center justify-between gap-4 bg-slate-50/50">

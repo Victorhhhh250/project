@@ -35,6 +35,18 @@
   }
 }
 
+/* Fade simples (alias para cardEnter - compatibilidade) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Feedback de sucesso (Checkmark pop) */
 @keyframes popIn {
   0% { transform: scale(0.5); opacity: 0; }
@@ -57,6 +69,12 @@
   100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
 }
 
+/* Pulso de glow (status dots ativos) */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* ==========================================================================
    ANIMATION UTILITIES MAPPING
    ========================================================================== */
@@ -64,12 +82,17 @@
   animation: cardEnter 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+/* Alias para compatibilidade com Dashboard */
+.animate-fade-in {
+  animation: fadeIn 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
 .animate-elastic-shake {
   animation: authElasticShake 0.4s cubic-bezier(0.68, -0.55, 0.26, 1.55) both;
 }
 
 .animate-fade-slide {
-  animation: fadeSlideIn 0.2s ease both;
+  animation: fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .animate-pop-in {
@@ -88,16 +111,22 @@
   animation: dash 1.5s ease-in-out infinite;
 }
 
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
 /* ==========================================================================
    ACCESSIBILITY: PREFERS REDUCED MOTION
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .animate-card-enter,
+  .animate-fade-in,
   .animate-elastic-shake,
   .animate-fade-slide,
   .animate-pop-in,
   .animate-orb-float,
-  .animate-spinner-rotate {
+  .animate-spinner-rotate,
+  .animate-pulse-glow {
     animation: none !important;
     transform: none !important;
     transition: none !important;

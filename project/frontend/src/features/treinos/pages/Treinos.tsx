@@ -24,45 +24,6 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
-/* ── Estilos CSS de Animação de Entrada Embutidos ── */
-const ANIMATIONS_CSS = `
-  @keyframes cardEnter {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeSlideIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes popIn {
-    0% { opacity: 0; transform: scale(0.95); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes pulseGlow {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .animate-card-enter {
-    animation: cardEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-fade-slide {
-    animation: fadeSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-pop-in {
-    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .animate-pulse-glow {
-    animation: pulseGlow 2s ease-in-out infinite;
-  }
-`;
-
 /* ── Tipagens ── */
 type WorkoutGoal = 'Hipertrofia' | 'Emagrecimento' | 'Força' | 'Condicionamento';
 type WorkoutStatus = 'Ativo' | 'Pausado' | 'Concluído';
@@ -117,12 +78,6 @@ const mockWorkouts: WorkoutPlan[] = [
   { id: 7, name: 'Cardio & Resistência', split: 'HIIT + Core', student: 'Gabriela Costa', studentAvatar: 'GC', color: '#ec4899', goal: 'Emagrecimento', level: 'Intermediário', status: 'Ativo', exercisesCount: 14, durationMin: 45, frequencyDays: 4, personal: 'Maria Clara', adherence: 91, lastUpdate: '02 Jul 2026' },
   { id: 8, name: 'Powerlifting Base', split: 'Focus Squat/Bench/Deadlift', student: 'Henrique Alves', studentAvatar: 'HA', color: '#2563eb', goal: 'Força', level: 'Avançado', status: 'Ativo', exercisesCount: 15, durationMin: 80, frequencyDays: 4, personal: 'Carlos Eduardo', adherence: 78, lastUpdate: '28 Jun 2026' },
 ];
-
-const STYLES = {
-  card: "bg-white rounded-[24px] border border-slate-100/80 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.04)] transition-all duration-300",
-  btnPrimary: "flex items-center gap-2 bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] hover:from-[#1d4ed8] hover:to-[#1e40af] text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm hover:shadow cursor-pointer",
-  btnOutline: "flex items-center gap-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 px-3.5 py-2.5 rounded-xl shadow-sm hover:bg-slate-50 transition-colors cursor-pointer",
-};
 
 export default function Treinos() {
   const [search, setSearch] = useState('');
@@ -199,7 +154,6 @@ export default function Treinos() {
 
   return (
     <div className="space-y-6 text-slate-800">
-      <style>{ANIMATIONS_CSS}</style>
 
       {/* ── HEADER DA PÁGINA & AÇÕES ── */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -220,7 +174,7 @@ export default function Treinos() {
         <div className="flex items-center gap-3 animate-fade-slide" style={{ animationDelay: '0.2s' }}>
           <button
             type="button"
-            className={STYLES.btnOutline}
+            className="btn-outline"
             onClick={() => alert('Exportando fichas de treino...')}
           >
             <Download className="w-4 h-4 text-slate-500" />
@@ -229,7 +183,7 @@ export default function Treinos() {
 
           <button
             type="button"
-            className={STYLES.btnPrimary}
+            className="btn-primary"
             onClick={() => alert('Abrir construtor de Novo Treino')}
           >
             <Plus className="w-4 h-4" />
@@ -240,7 +194,7 @@ export default function Treinos() {
 
       {/* ── KPI STATS OVERVIEW ── */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        <div className={`${STYLES.card} animate-card-enter flex items-center justify-between p-5`} style={{ animationDelay: '0.05s' }}>
+        <div className="panel-card-sm animate-card-enter flex items-center justify-between" style={{ animationDelay: '0.05s' }}>
           <div>
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Treinos Ativos</p>
             <p className="text-2xl font-bold text-slate-800 mt-1">{counts.ativos}</p>
@@ -250,7 +204,7 @@ export default function Treinos() {
           </div>
         </div>
 
-        <div className={`${STYLES.card} animate-card-enter flex items-center justify-between p-5`} style={{ animationDelay: '0.1s' }}>
+        <div className="panel-card-sm animate-card-enter flex items-center justify-between" style={{ animationDelay: '0.1s' }}>
           <div>
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Pausados</p>
             <p className="text-2xl font-bold text-slate-800 mt-1">{counts.pausados}</p>
@@ -260,7 +214,7 @@ export default function Treinos() {
           </div>
         </div>
 
-        <div className={`${STYLES.card} animate-card-enter flex items-center justify-between p-5`} style={{ animationDelay: '0.15s' }}>
+        <div className="panel-card-sm animate-card-enter flex items-center justify-between" style={{ animationDelay: '0.15s' }}>
           <div>
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Concluídos</p>
             <p className="text-2xl font-bold text-slate-800 mt-1">{counts.concluidos}</p>
@@ -270,7 +224,7 @@ export default function Treinos() {
           </div>
         </div>
 
-        <div className={`${STYLES.card} animate-card-enter flex items-center justify-between p-5`} style={{ animationDelay: '0.2s' }}>
+        <div className="panel-card-sm animate-card-enter flex items-center justify-between" style={{ animationDelay: '0.2s' }}>
           <div>
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Adesão Média</p>
             <p className="text-2xl font-bold text-slate-800 mt-1">{avgAdherence}%</p>

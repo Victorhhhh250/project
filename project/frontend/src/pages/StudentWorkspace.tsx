@@ -70,27 +70,26 @@ export default function StudentWorkspace() {
     .join('');
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen p-4 sm:p-6 lg:p-10 font-sans">
-      <div className="max-w-6xl mx-auto space-y-6">
-        
-        {/* ── HEADER NAVIGATION ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-6">
+
+      {/* ── HEADER NAVIGATION ── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-fade-slide">
           <Link
-            to={ROUTES.dashboard}
+            to={ROUTES.alunos}
             className="group flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-blue-600 transition-colors w-fit"
           >
             <div className="p-1.5 rounded-md group-hover:bg-blue-50 transition-colors">
               <ArrowLeft size={18} />
             </div>
-            Voltar para o Dashboard
+            Voltar para Alunos
           </Link>
 
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm">
+            <button type="button" className="btn-outline">
               <MessageSquare size={16} className="text-slate-400" />
               <span className="hidden sm:inline">Mensagem</span>
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#2563eb] text-white rounded-lg text-sm font-medium hover:bg-blue-700 hover:shadow-md active:scale-95 transition-all shadow-sm">
+            <button type="button" className="btn-primary">
               <Edit size={16} />
               <span>Editar Aluno</span>
             </button>
@@ -98,7 +97,7 @@ export default function StudentWorkspace() {
         </div>
 
         {/* ── PROFILE HERO SECTION ── */}
-        <section className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <section className="bg-white rounded-[24px] border border-slate-100/80 shadow-[0_4px_24px_rgba(0,0,0,0.02)] overflow-hidden animate-fade-slide" style={{ animationDelay: '0.1s' }}>
           {/* Cover background (optional subtle detail) */}
           <div className="h-24 w-full bg-gradient-to-r from-blue-50 to-indigo-50/30 border-b border-slate-100"></div>
           
@@ -163,7 +162,7 @@ export default function StudentWorkspace() {
         {activeTab === 'Visão Geral' && (
           <div className="grid gap-4 md:grid-cols-3">
             {/* Card Financeiro */}
-            <div className="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-emerald-200 hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between cursor-default">
+            <div className="panel-card group flex flex-col justify-between cursor-default animate-card-enter hover:-translate-y-0.5" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-sm font-bold text-slate-500 uppercase tracking-wide group-hover:text-emerald-700 transition-colors">Financeiro (Mês)</p>
@@ -182,7 +181,7 @@ export default function StudentWorkspace() {
             </div>
 
             {/* Card Frequência */}
-            <div className="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between cursor-default">
+            <div className="panel-card group flex flex-col justify-between cursor-default animate-card-enter hover:-translate-y-0.5" style={{ animationDelay: '0.28s' }}>
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-sm font-bold text-slate-500 uppercase tracking-wide group-hover:text-blue-700 transition-colors">Frequência</p>
@@ -201,7 +200,7 @@ export default function StudentWorkspace() {
             </div>
 
             {/* Card Próxima Aula */}
-            <div className="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:border-purple-200 hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between cursor-default">
+            <div className="panel-card group flex flex-col justify-between cursor-default animate-card-enter hover:-translate-y-0.5" style={{ animationDelay: '0.36s' }}>
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <p className="text-sm font-bold text-slate-500 uppercase tracking-wide group-hover:text-purple-700 transition-colors">Próxima Aula</p>
@@ -222,6 +221,5 @@ export default function StudentWorkspace() {
         )}
 
       </div>
-    </div>
   );
 }
